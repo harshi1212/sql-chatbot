@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SQL Chatbot</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+
+    <div class="sidebar">
+    <div class="logo">
+    SQL Chatbot
+      <div style="display:flex;gap:8px;align-items:center">
+    <button class="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
+    <a href="/logout" class="logout-btn" title="Logout">🚪</a>
+      </div>
+    </div>
+      
+       
+      
+
+      <div class="upload-section">
+        <label>Table Name</label>
+        <input type="text" id="tableName" placeholder="e.g. employees" value="data">
+
+        <label>Upload File (CSV / Excel / JSON)</label>
+        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.json">
+
+        <button onclick="uploadFile()">Load Table</button>
+      </div>
+
+      <div class="schema-title">
+        Loaded Tables
+        <button class="clear-btn" onclick="clearAllTables()">Clear all</button>
+      </div>
+      <div id="schemaPanel">
+        <p class="no-data">No tables loaded yet.</p>
+      </div>
+
+      <div class="schema-title" style="margin-top:16px">Query History</div>
+      <div id="historyPanel">
+        <p class="no-data">No queries yet.</p>
+      </div>
+    </div>
+
+    <div class="main">
+      <div class="chat-header">
+        Ask anything about your data
+      </div>
+
+      <!-- Table preview panel -->
+      <div class="preview-panel" id="previewPanel" style="display:none">
+        <div class="preview-header">
+          <span id="previewTitle">Table preview</span>
+          <button onclick="closePreview()">✕</button>
+        </div>
+        <div class="preview-content" id="previewContent"></div>
+      </div>
+
+      <div class="messages" id="messages">
+        <div class="welcome">
+          Upload a CSV, Excel or JSON file on the left, then ask questions below.
+        </div>
+      </div>
+
+      <div class="suggestions" id="suggestions"></div>
+      <div class="download-bar" id="downloadBar" style="display:none">
+        <button onclick="downloadCSV()" class="download-btn">⬇ Download results as CSV</button>
+      </div>
+
+      <div class="input-bar">
+        <input
+          type="text"
+          id="questionInput"
+          placeholder="e.g. Show top 5 employees by salary"
+          onkeydown="if(event.key==='Enter') ask()"
+        >
+        <button onclick="ask()">Ask</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="/static/script.js"></script>
+</body>
+</html>
